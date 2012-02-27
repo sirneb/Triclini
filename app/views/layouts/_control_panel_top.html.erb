@@ -1,0 +1,70 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner" style="background-repeat:none">
+    <div class="container" >
+      <%= link_to @club.name, root_url, :class => 'brand' %>
+      <ul class="nav">
+        <li class="divider-vertical"></li>
+
+        <li><%= link_to "Dashboard", dashboard_index_path %></li>
+      
+      </ul>
+
+      <ul class="nav pull-right">
+        <li class="divider-vertical"></li>
+        <li><%= link_to "Logout", dashboard_index_path %></li>
+      </ul>
+
+      <p class="navbar-text pull-right">Logged in as <%= link_to "TestUser", dashboard_index_path %></p>
+
+      <ul class="nav pull-right">
+        <li class="divider-vertical"></li>
+      </ul>
+
+      <%= text_field_tag :search, nil, :placeholder => "Quick Navigation", :class => "input-medium search-query pull-right", :style => "margin-top:5px" %>
+    </div>
+  </div>
+</div>
+
+<div class="container well">
+  <div class="row">
+    <div class="btn-toolbar">
+      <div class="span2">
+        <div class="btn-group">
+          <a class="btn-success btn-large dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-pencil"></i>
+            Reservation
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Make Reservation", reservations_make_path %></li>
+            <li><%= link_to "Show Reservations", reservations_show_current_path %></li>
+            <li><a href="#">Search</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="span3 offset7">
+        <div class="btn-group">
+          <a class="btn btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-book"></i>
+            Reports
+          </a>
+        </div>
+
+        <div class="btn-group">
+          <a class="btn-warning btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-cog"></i>
+            Configure
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Preferences</a></li>
+            <li><a href="#">Schedule/Availability</a></li>
+            <li><a href="#">Accounts Management</a></li>
+            <li><a href="#">Email Preset</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

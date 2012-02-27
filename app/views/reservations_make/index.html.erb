@@ -1,0 +1,107 @@
+<%= form_tag({:controller => "reservations", :action => "create"}, :method => "post") do %>
+<div id="make_reservation" class="modal fade">
+  <div class='modal-header'> 
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Reservation Creation Wizard</h3> 
+  </div>
+  <div class="modal-body">
+    <div id='step1' class="pages" >
+      <h4>Step 1 of 4: Pick the date and time, then choose the venue.</h4><br />
+      <div class="control-group">
+        <table>
+          <td style="float:left">
+            <%= label_tag "Date:" %>
+            <%= text_field_tag 'date', "YYYY-MM-DD", :class => "span2", :id => 'modal_date_pick' %>
+          </td>
+          <td style="padding-left: 50px">
+            <%= label_tag "Time:" %>
+            <%= select_tag 'time', time_select_string.html_safe, :class => "span2" %><br /><br /><br />
+          </td>
+        </table>
+      </div>
+      <div class="control-group" style="visibility:hidden">
+        <table>
+          <td>
+            <%= label_tag "Reservation Options:" %>
+            <%= select_tag 'reservation_type', "<option>Normal Dining</option><option>Valentine's Day Kickoff</option>".html_safe  %>
+          </td>
+          <td style="padding-left:40px">
+            <%= label_tag "Number of Guests" %>
+            <%= text_field_tag 'guests', "", :class => "span1" %>
+          </td>
+        </table>
+      </div>
+    </div>
+    <div id='step2' class="pages" style="display:none">
+      <h4>Step 2 of 4: Customer and Contact Information</h4><br />
+      <div class="control-group">
+        <table><td>
+            <%= label_tag "Last Name" %>
+            <%= text_field_tag 'last_name', "", :class => "span2" %>
+          </td>
+          <td style="padding-left:30px">
+            <%= label_tag "First Name" %>
+            <%= text_field_tag 'first_name', "", :class => "span2" %>
+          </td>
+        </table>
+      </div>
+      <div class="control-group">
+        <%= radio_button_tag "customer_type", "Member", :class => "radio" %> Member 
+        <%= radio_button_tag "customer_type", "Non-Member",:class => "radio" %> Non-Member
+      </div>
+      <div class="control-group">
+        <%= label_tag "Contact Number" %>
+        <%= text_field_tag 'contact_number', "", :class => "span2" %>
+        <%= label_tag "Email Address" %>
+        <%= text_field_tag 'email', "", :class => "span2" %>
+      </div>
+    </div>
+    <div id='step3' class="pages" style="display:none">
+      <h4>Step 3 of 4: Special Accommodations</h4><br />
+      <%= label_tag "Do you have any special requests?" %>
+      <%= text_area_tag 'note', "", :class => "span6" %>
+      <%= label_tag "Would you like to sign up for our newsletter that can grant your discounts and special promotions?" %>
+      <%= radio_button_tag "promotion", "Yes", true, :class => "radio" %> Yes 
+      <%= radio_button_tag "promotion", "No", false, :class => "radio" %> No
+    </div>
+    <div id='step4' class="pages" style="display:none">
+      <h4>Step 4 of 4: Review the information and reserve.</h4><br/>
+      <table>
+        <tr>
+          <td><strong>Date</strong>: 07/12/2011</td>
+          <td style="padding-left:20px"><strong>Time:</strong> 7:00pm</td>
+        </tr>
+        <tr>
+          <td><strong>Event Type:</strong> Normal Dining</td>
+          <td style="padding-left:20px"><strong>Location:</strong> Elizabeth Hall</td>
+        </tr>
+        <tr>
+          <td><strong>Number of Guests:</strong> 8</td>
+        </tr>
+      </table>
+      <br />
+      <strong>Name:</strong> Tom Cruise<br>
+      <strong>Contact Number:</strong> 123-123-4567<br>
+      <strong>Email Address:</strong> TomCruise@tom.com<br>
+      <table><tr>
+          <td><strong>Special Requests:</strong></td>
+          <td>Do not sit me here my Ex'es. Blah blah blah blah. Spam some more here there.</td>
+        </tr>
+      </table>
+      <strong>Newsletter:</strong> Yes<br>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="pull-left">
+      <a href="#" class="btn btn-primary btn-large disabled" id="modal_prev" page_data="0">Prev</a>
+    </div>
+    <div class="pull-right">
+      <a href="#" class="btn btn-large btn-primary" id="modal_next" page_data="2">Next</a>
+      <%= submit_tag "Save", :class => "btn btn-large btn-danger", :id => "modal_save", :style => "display:none" %>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+
