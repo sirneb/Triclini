@@ -1,0 +1,59 @@
+<%= render 'tabs_layout' %>
+
+<div class='well'>
+<%= form_tag "/search" do %>
+<div class="row">
+  <div class="span2">
+    <%= label_tag "Reservation Number" %>
+    <%= text_field_tag :reservation_number, nil, :placeholder => "A12345678", :class => "span2" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span3">
+    <%= label_tag "Date" %>
+    <div class="input-append">
+      <%= text_field_tag :date, nil, :class => "span2" %>
+      <span class="add-on">
+        <i class="icon-calendar"></i>
+      </span>
+    </div>
+  </div>
+  <div class="span2">
+    <%= label_tag "Time" %>
+    <%= select_tag :time, time_select_string, :class => "span2" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span3">
+    <%= label_tag "Customer Name:" %>
+    <%= text_field_tag :customer, nil, :class => "span3" %>
+  </div>
+  <div class="span2">
+    <%= label_tag "Member ID:" %>
+    <%= text_field_tag :member_id, nil, :class => "span2" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span3">
+    <%= label_tag "Event Name:" %>
+    <%= text_field_tag :event, nil, :class => "span3" %>
+  </div>
+  <div class="span3">
+    <%= label_tag "Dining Location" %>
+    <%= select_tag :hall, "<option></option><option>Chapter Hall</option><option>Garden Palace</option>".html_safe, :class => "span3" %>
+
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <%= label_tag "Confirmation Status" %>
+    <%= select_tag :confirmed, "<option></option><option>Confirmed</option><option>Unconfirmed</option>".html_safe, :class => "span2" %>
+  </div>
+</div>
+<br />
+<div>
+<%= submit_tag "Search", :class => "btn btn_large" %>
+</div>
+<% end %>
+</div>

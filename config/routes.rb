@@ -12,6 +12,17 @@ Triclini::Application.routes.draw do
   scope 'reservations_make' do
     match '', :to => 'reservations_make#index', :as => 'reservations_make'
   end
+  scope 'search' do
+    match '/reservation', :to => 'search#reservation', :as => 'search_reservation'
+    match '/member', :to => 'search#customer', :as => 'search_customer'
+    match '/event', :to => 'search#event', :as => 'search_event'
+  end
+
+  namespace 'configure' do
+    match '/preferences', :to => 'preferences#index'
+    match '/schedules', :to => 'schedules#index'
+    match '/accounts', :to => 'accounts#index'
+  end
   #
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,6 +1,7 @@
 module ApplicationHelper
   def time_select_string
-      '<option value="0">12:00 am</option>
+      '<option value=""></option>
+      <option value="0">12:00 am</option>
       <option value="30">12:30 am</option>
       <option value="60">1:00 am</option>
       <option value="90">1:30 am</option>
@@ -37,7 +38,7 @@ module ApplicationHelper
       <option value="1020">5:00 pm</option>
       <option value="1050">5:30 pm</option>
       <option value="1080">6:00 pm</option>
-      <option value="1110" selected="selected">6:30 pm</option>
+      <option value="1110">6:30 pm</option>
       <option value="1140">7:00 pm</option>
       <option value="1170">7:30 pm</option>
       <option value="1200">8:00 pm</option>
@@ -47,6 +48,6 @@ module ApplicationHelper
       <option value="1320">10:00 pm</option>
       <option value="1350">10:30 pm</option>
       <option value="1380">11:00 pm</option>
-      <option value="1410">11:30 pm</option>'
+      <option value="1410">11:30 pm</option>'.html_safe
   end
 end

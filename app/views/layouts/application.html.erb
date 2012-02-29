@@ -12,12 +12,10 @@
       <%= render 'layouts/control_panel_top' %>
     <% end %>
     <div class="container">
-      <div class="row-fluid">
         <div data-pjax-container class="">
           <!--Body content-->
           <%= yield %>
         </div>
-      </div>
     </div>
     <div style="position:absolute; bottom: 0px;">
       <%= debug(params) if Rails.env.development? %>

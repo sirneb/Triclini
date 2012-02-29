@@ -1,0 +1,39 @@
+<%= render 'tabs_layout' %>
+
+<div class='well'>
+<%= form_tag "/search" do %>
+<div class="row">
+  <div class="span2">
+    <%= label_tag "Member ID:" %>
+    <%= text_field_tag :member_id, nil, :class => "span2" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <%= label_tag "Last Name:" %>
+    <%= text_field_tag :last_name, nil, :class => "span2" %>
+  </div>
+  <div class="span2">
+    <%= label_tag "First Name:" %>
+    <%= text_field_tag :first_name, nil, :class => "span2" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">
+    <%= label_tag "Phone Number" %>
+    <%= text_field_tag :phone_number, nil, :class => "span2" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span3">
+    <%= label_tag "Email" %>
+    <%= text_field_tag :email, nil, :class => "span3" %>
+  </div>
+</div>
+<br />
+<div>
+<%= submit_tag "Search", :class => "btn btn_large" %>
+</div>
+<% end %>
+</div>

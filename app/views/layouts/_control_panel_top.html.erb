@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="container well">
+<div class="well pjax_enabled">
   <div class="row">
     <div class="btn-toolbar">
       <div class="span2">
@@ -36,14 +36,14 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Make Reservation", reservations_make_path %></li>
+            <li><%= link_to "Make Reservation", "#", :id => 'reservation_wiz_trigger' %></li>
             <li><%= link_to "Show Reservations", reservations_show_current_path %></li>
-            <li><a href="#">Search</a></li>
+            <li><%= link_to "Search", search_reservation_path %></li>
           </ul>
         </div>
       </div>
 
-      <div class="span3 offset7">
+      <div class="pull-right">
         <div class="btn-group">
           <a class="btn btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="icon-book"></i>
@@ -58,9 +58,9 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Preferences</a></li>
-            <li><a href="#">Schedule/Availability</a></li>
-            <li><a href="#">Accounts Management</a></li>
+            <li><%= link_to "Preferences", configure_preferences_path %></a></li>
+            <li><%= link_to "Schedule/Availability", configure_schedules_path %></li>
+            <li><%= link_to "Accounts Management", configure_accounts_path %></li>
             <li><a href="#">Email Preset</a></li>
           </ul>
         </div>
@@ -68,3 +68,4 @@
     </div>
   </div>
 </div>
+<%= render 'shared/modal_make_reservation' %>

@@ -6,48 +6,112 @@ MODAL_LAST_PAGE = 4
 
 $ ->
 
-  $('#make_reservation').modal( {backdrop:true, keyboard:false} )
+  ($ '#make_reservation').modal( {backdrop:true, keyboard:false, show:false} )
 
-  $('#modal_date_pick').datepicker()
+  ($ '#reservation_wiz_trigger').live 'click', -> ($ '#make_reservation').modal 'show'
 
-  ## Handle the modal pages
-  $('#modal_next').bind('click', ->
-    page_num = parseInt $(@).attr('page_data')
+  ($ '#modal_date_pick').datepicker()
 
-    ## Set up for future pages
-    $(this).attr 'page_data', page_num+1
-    $('#modal_prev').attr 'page_data', page_num-1
+  makeReservation = new PrevNextSave('#make_reservation', 4)
+  makeReservation.bind()
 
-    ## Hide old, display new
-    $('.pages').hide()
-    $('#step'+page_num).show()
+class PrevNextSave
+  constructor: (mainDiv, numOfPages) ->
+    @mainDiv = mainDiv
+    @nextBindId = '#next'
+    @prevBindId = '#prev'
+    @saveBindId = '#save'
+    @pageClass = '.pages'
+    @numOfPages = numOfPages
 
-    if page_num == 2
-      $('#modal_prev').removeClass "disabled"
-      bindModalPrev()
+  bind: ->
+    $nextBind = ($ @mainDiv + ' '+@nextBindId)
+    $prevBind = ($ @mainDiv + ' '+@prevBindId)
+    currentPage = 1
 
-    if page_num == MODAL_LAST_PAGE
-      $(@).hide()
-      $('#modal_save').show()
-  )
+    $nextBind.bind 'click', =>
 
-bindModalPrev =  ->
-  $('#modal_prev').bind 'click', ->
-    page_num = parseInt($(this).attr('page_data'))
+      newCurrentPage = currentPage+1
+      
+      ## Set up button's new redirection
+      $nextBind.attr 'page_data', newCurrentPage+1
+      $prevBind.attr 'page_data', currentPage
 
-    ## Set up for future pages
-    $(@).attr 'page_data', page_num-1
-    $('#modal_next').attr 'page_data', page_num+1
+      ## Hide old, display new
+      ($ @mainDiv + ' '+@pageClass).hide()
+      ($ @mainDiv + ' #step'+newCurrentPage).show()
 
-    ## Hide old, display new
-    $('.pages').hide()
-    $('#step'+page_num).show()
+      if currentPage == 1
+        ($ @mainDiv + ' ' + @prevBindId).removeClass "disabled" # uses bootstrap
+        bindPrev()
 
-    if page_num == 1
-      $(@).addClass "disabled"
-      $(@).unbind 'click'
+      if newCurrentPage == @numOfPages
+        $nextBind.hide()
+        ($ @mainDiv + ' ' + @saveBindId).show()
 
-    if page_num == MODAL_LAST_PAGE-1
-      $('#modal_next').show()
-      $('#modal_save').hide()
+      currentPage++
+
+    bindPrev = =>
+      $prevBind.bind 'click', =>
+        newCurrentPage = currentPage-1
+
+        ## Set up for future pages
+        $prevBind.attr 'page_data', newCurrentPage-1
+        $nextBind.attr 'page_data', currentPage
+
+        ## Hide old, display new
+        ($ @mainDiv + ' ' + @pageClass).hide()
+        ($ @mainDiv + ' #step' + newCurrentPage).show()
+
+        if newCurrentPage == 1
+          $prevBind.addClass "disabled" # uses bootstrap
+          $prevBind.unbind 'click'
+
+        if currentPage == @numOfPages
+          $nextBind.show()
+          ($ @mainDiv + ' ' + @saveBindId).hide()
+
+        currentPage--
+
+
+  ## Handle the modal pages@
+#   ($ '#modal_next').bind 'click', ->
+#     page_num = parseInt $(@).attr('page_data')
+# 
+#     ## Set up for future pages
+#     $(this).attr 'page_data', page_num+1
+#     ($ '#modal_prev').attr 'page_data', page_num-1
+# 
+#     ## Hide old, display new
+#     ($ '.pages').hide()
+#     ($ '#step'+page_num).show()
+# 
+#     if page_num == 2
+#       ($ '#modal_prev').removeClass "disabled"
+#       bindModalPrev()
+# 
+#     if page_num == MODAL_LAST_PAGE
+#       $(@).hide()
+#       ($ '#modal_save').show()
+#   
+# 
+# bindModalPrev =  ->
+#   ($ '#modal_prev').bind 'click', ->
+#     page_num = parseInt $(this).attr('page_data')
+# 
+#     ## Set up for future pages
+#     $(@).attr 'page_data', page_num-1
+#     ($ '#modal_next').attr 'page_data', page_num+1
+# 
+#     ## Hide old, display new
+#     ($ '.pages').hide()
+#     ($ '#step'+page_num).show()
+# 
+#     if page_num == 1
+#       $(@).addClass "disabled"
+#       $(@).unbind 'click'
+# 
+#     if page_num == MODAL_LAST_PAGE-1
+#       ($ '#modal_next').show()
+#       ($ '#modal_save').hide()
   

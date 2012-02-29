@@ -3,8 +3,9 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  $('.reservations_show a').pjax('[data-pjax-container]')
+  $('.pjax_enabled a').pjax('[data-pjax-container]')
 
-  $('#reserv_show_date_pick').datepicker()
+  $('#reserv_show_date_pick').live 'click', ->
+    ($ this).datepicker().focus()
 
   return 0
