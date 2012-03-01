@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="span3 pjax_enabled">
+    <ul class="nav nav-list">
+      <li class="nav-header">
+        Basic Configuration
+      </li>
+      <li <%= set_active("club") %>>
+        <%= link_to "Club", configure_club_path %>
+      </li>
+      <li <%= set_active("dining") %>>
+        <%= link_to "Dining", configure_dining_path %>
+      </li>
+      <li <%= set_active("event") %>>
+        <%= link_to "Event", configure_event_path %>
+      </li>
+      <li class="nav-header">
+        Accounts Management
+      </li>
+      <li <%= set_active("accounts") %>>
+        <%= link_to "Accounts", configure_accounts_path %>
+      </li>
+      <li>
+        <a href="#">User Templates</a>
+      </li>
+      <li class="nav-header">
+        Scheduling
+      </li>
+      <li <%= set_active("schedules") %>>
+        <%= link_to "Schedules", configure_schedules_path %>
+      </li>
+      <li>
+        <a href="#">Holidays/Extra Openings</a>
+      </li>
+      <li class="nav-header">
+        Events Setup
+      </li>
+      <li <%= 'class=active' if params[:controller] == 'halls' %>>
+        <%= link_to "Dining Halls", halls_path %>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+    </ul>
+  </div>
+  <div class="span9">
+    <%= yield %>
+  </div>
+</div>

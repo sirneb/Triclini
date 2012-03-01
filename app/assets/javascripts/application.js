@@ -11,7 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui
+//= require fullcalendar
+//= require jquery-ui-1.8.18.custom.min
 //= require jquery_ujs
 //= require jquery.pjax
 //= require_tree .

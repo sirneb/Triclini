@@ -1,1 +1,47 @@
-<h1>Dashboard</h1>
+<div class="page-header">
+  <div class="span3 pull-right">
+    <%= select_tag "venue", "<option>Normal Dining</option><option>Valentine's Day</option><option>White Day</option>".html_safe, :class => 'span3'%>
+  </div>
+  <h2>Dashboard </h2>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <h3>Today's Reservations - <em><%= day_of_week %>, <%= Date.today.to_s %></em></h3>
+    <table class="table">
+      <tr>
+        <th>Time</th>
+        <th>Customer Name</th>
+        <th>Dining/Event</th>
+        <th># of Guests</th>
+      </tr>
+
+    </table>
+
+  </div>
+  <div class="span3 pull-right">
+    <div class="well">
+      <h3>Today's Summary</h3><br/>
+      <strong>6:00pm</strong> - 5 reservations<br/>
+      <strong>7:00pm</strong> - 15 reservations<br/>
+      <strong>8:00pm</strong> - 23 reservations<br/>
+      <strong>9:00pm</strong> - 12 reservations<br/>
+      <strong>10:00pm</strong> - 5 reservations<br/>
+      <strong>11:00pm</strong> - 1 reservations<br/>
+      <strong>12:00pm</strong> - 0 reservations<br/><br/>
+
+      <strong>Total Expected Guests:</strong> 212<br/>
+      <strong>Total Reserved:</strong> 50<br/>
+      <strong>Confirmed:</strong> <span style="color:green">12</span><br/>
+      <strong>Unconfirmed:</strong> <span style="color:red">4</span><br/>
+      <strong>Cancelled:</strong> <span style="color:red">1</span><br/>
+    </div>
+    <div class="well">
+      <h3>Upcoming Events</h3><br/>
+      <strong>02/14</strong> - Valentine's Day<br/>
+      <strong>03/14</strong> - White Day<br/>
+      <strong>03/24</strong> - George's Birthday<br/>
+      <strong>05/02</strong> - Tiger's Visit<br/>
+
+    </div>
+</div>

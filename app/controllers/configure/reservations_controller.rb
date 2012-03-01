@@ -1,19 +1,19 @@
-class Configure::PreferencesController < ApplicationController
+class Configure::ReservationsController < ApplicationController
   before_filter :load_club
 
   def club
 
   end
 
-  def hall
-
-  end
-
-  def dining
+  def reservation
 
   end
 
   def event
+
+  end
+
+  def reservation_search
 
   end
 

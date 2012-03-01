@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hall.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @hall.description %>
+</p>
+
+<p>
+  <b>Subdomain:</b>
+  <%= @hall.total_capacity %>
+</p>
+
+<%= link_to 'Edit', edit_hall_path(@hall) %> |
+<%= link_to 'Back', halls_path %>

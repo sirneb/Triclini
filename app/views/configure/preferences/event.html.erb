@@ -1,0 +1,22 @@
+  <div class="page-header">
+    <h4>Events Options</h4>
+  </div>
+  <%= form_tag "/somewhere" do %>
+  <div class="row">
+    <div class="span9">
+      Maximum number of guests? 
+      <%= text_field_tag :name, nil, :class => "span1" %>
+      Minimum? 
+      <%= text_field_tag :name, nil, :class => "span1" %>
+    </div>
+    <div class="span9">
+      Days in advance are reservations made <strong>available</strong>?
+      <%= text_field_tag :name, nil, :class => "span1" %>
+    </div>
+    <div class="span9">
+      Days in advance are reservations made <strong>unavailable</strong>?
+      <%= text_field_tag :name, nil, :class => "span1" %>
+    </div>
+  </div>
+  <% end %>
+

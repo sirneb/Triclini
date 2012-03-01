@@ -1,0 +1,92 @@
+<div class="page-header">
+  <h4>Operating Hours:</h4>
+</div>
+<%= form_tag "/somewhere" do %>
+<div class='row'>
+  <div class='span11'>
+    <div class='row'>
+      <div class='span2'>
+        Monday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Tuesday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Wednesday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Thursday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Friday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Saturday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='span2'>
+        Sunday
+      </div>
+      <div class='span8'>
+        <%= select_tag :name, time_select_string, :class => "span2" %> to 
+        <%= select_tag :name, time_select_string, :class => "span2" %><br />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-header">
+  <h4>Basic Settings:</h4>
+</div>
+<div class='row'>
+  <div class="span9">
+    Maximum number of guests? 
+    <%= text_field_tag :name, nil, :class => "span1" %>
+    Minimum? 
+    <%= text_field_tag :name, nil, :class => "span1" %>
+  </div>
+  <div class="span9">
+    Days in advance are reservations made <strong>available</strong>?
+    <%= text_field_tag :name, nil, :class => "span1" %>
+  </div>
+  <div class="span9">
+    Days in advance are reservations made <strong>unavailable</strong>?
+    <%= text_field_tag :name, nil, :class => "span1" %>
+  </div>
+</div>
+<% end %>
+

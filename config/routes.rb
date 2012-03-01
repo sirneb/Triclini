@@ -3,6 +3,7 @@ Triclini::Application.routes.draw do
   root :to => 'clubs#index'
 
   resources :clubs
+  resources :halls 
   resources :dashboard, :only => :index
   resources :reservations, :except => :destroy
   scope 'reservations_show' do
@@ -17,11 +18,18 @@ Triclini::Application.routes.draw do
     match '/member', :to => 'search#customer', :as => 'search_customer'
     match '/event', :to => 'search#event', :as => 'search_event'
   end
+  match '/calendar', :to => 'event_calendar#index'
 
   namespace 'configure' do
-    match '/preferences', :to => 'preferences#index'
+    scope '/preferences' do
+      match '/club', :to => 'preferences#club'
+      match '/hall', :to => 'preferences#hall'
+      match '/dining', :to => 'preferences#dining'
+      match '/event', :to => 'preferences#event'
+    end
     match '/schedules', :to => 'schedules#index'
     match '/accounts', :to => 'accounts#index'
+    match '/reservations', :to => 'reservations#index'
   end
   #
   # The priority is based upon order of creation:

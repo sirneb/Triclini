@@ -1,0 +1,53 @@
+<%= content_for :configure_content do %>
+  <div class="page-header">
+    <h3>Basic Information</h3>
+  </div>
+  <%= form_tag "/somewhere" do %>
+  <div class="row">
+    <div class="span3">
+      <%= label_tag "Club Name" %>
+      <%= text_field_tag :name, nil, :class => "span3" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <%= label_tag "Address" %>
+      <%= text_field_tag :address, nil, :class => "span4" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      <%= label_tag "City/Town" %>
+      <%= text_field_tag :city, nil, :class => "span2" %>
+    </div>
+    <div class="span2">
+      <%= label_tag "Zip Code" %>
+      <%= text_field_tag :zip_code, nil, :class => "span2" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      <%= label_tag "State/Province" %>
+      <%= text_field_tag :state, nil, :class => "span3" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3">
+      <%= label_tag "Country" %>
+      <%= select_tag :country, "<option>United States</option><option>Canada</option>".html_safe, :class => "span3" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      <%= label_tag "Phone Number" %>
+      <%= text_field_tag :phone_number, nil, :class => "span2" %>
+    </div>
+    <div class="span2">
+      <%= label_tag "Fax Number" %>
+      <%= text_field_tag :fax_number, nil, :class => "span2" %>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+
+<%= render 'layouts/configure_layout'  %>

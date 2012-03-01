@@ -11,10 +11,10 @@
     <% if @club %>
       <%= render 'layouts/control_panel_top' %>
     <% end %>
-    <div class="container">
+    <div class="">
         <div data-pjax-container class="">
+          <%= render 'page_template' %>
           <!--Body content-->
-          <%= yield %>
         </div>
     </div>
     <div style="position:absolute; bottom: 0px;">

@@ -1,0 +1,31 @@
+<%= form_for(@hall) do |f| %>
+  <% if @hall.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hall.errors.count, "error") %> prohibited this venue from being saved:</h2>
+
+      <ul>
+      <% @hall.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => "span6", :rows => "10" %>
+  </div>
+  <div class="field">
+    <%= f.label :total_capacity %>
+    <%= f.text_field :total_capacity, :class => "span1" %>
+  </div>
+  <div class="actions">
+    <%= f.submit nil, :class => "btn btn-primary" %>
+    <%= link_to 'Cancel', halls_path, :class => 'btn' %>
+  </div>
+<% end %>

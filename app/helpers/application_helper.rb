@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def day_of_week
+    Date::DAYNAMES[Date.today.wday]
+  end
+
   def time_select_string
       '<option value=""></option>
       <option value="0">12:00 am</option>

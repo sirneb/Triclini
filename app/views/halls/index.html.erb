@@ -1,0 +1,26 @@
+<br />
+<h3>Dining Halls</h3>
+<br />
+
+<table class="table table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Total Capacity</th>
+  </tr>
+
+<% @halls.each do |hall| %>
+  <tr>
+    <td><%= link_to hall.name, hall_path(hall) %></td>
+    <td><%= hall.description %></td>
+    <td><%= hall.total_capacity %></td>
+    <td><%= link_to 'Edit', edit_hall_path(hall), :class => "btn btn-mini" %></td>
+    <td><%= link_to 'Destroy', hall, confirm: 'Are you sure?', method: :delete, :class => "btn btn-mini" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Add a new dining hall', new_hall_path %>
+
