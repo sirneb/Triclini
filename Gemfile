@@ -26,6 +26,9 @@ gem 'jquery-rails'
 
 gem 'rack-pjax'
 
+gem 'validates_timeliness', '~> 3.0.2'
+gem 'devise'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -44,10 +47,13 @@ gem 'rack-pjax'
 
 group :development, :test do
   gem 'spork', '~> 1.0rc'
+  gem 'spork-testunit'
   gem 'guard-spork', '~> 0.5.2'
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest'
   gem 'capybara'
+  gem 'factory_girl_rails'
   gem 'turn'
+  gem 'database_cleaner'
 end

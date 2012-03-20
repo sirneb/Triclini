@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229205021) do
+ActiveRecord::Schema.define(:version => 20120320003700) do
 
   create_table "club_members", :force => true do |t|
     t.integer  "user_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20120229205021) do
 
   create_table "normal_dinings", :force => true do |t|
     t.integer  "hall_id"
-    t.integer  "capacity"
+    t.integer  "default_capacity"
     t.text     "default_operation_hours"
     t.boolean  "reservable"
     t.integer  "start_reservable"
