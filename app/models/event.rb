@@ -1,5 +1,8 @@
 class Event < ActiveRecord::Base
+  include Reservable
+
   belongs_to :hall
+  has_many :reservations
 
   validates_presence_of :name
   validates_presence_of :capacity

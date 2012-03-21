@@ -1,4 +1,6 @@
 Triclini::Application.routes.draw do
+  devise_for :users
+
   match '', to: 'clubs#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
   root :to => 'clubs#index'
 

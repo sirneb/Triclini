@@ -1,7 +1,6 @@
 class Hall < ActiveRecord::Base
-  has_one :normal_dining
-  has_many :events
-  has_many :reservations
+  has_one :normal_dining, :dependent => :destroy
+  has_many :events, :dependent => :destroy
   belongs_to :club
 
   after_initialize :init

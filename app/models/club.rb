@@ -1,7 +1,7 @@
 class Club < ActiveRecord::Base
-  has_many :employees
-  has_many :halls
-  has_many :club_members
+  has_many :employees, :dependent => :destroy
+  has_many :halls, :dependent => :destroy
+  has_many :club_members, :dependent => :destroy
 
   # should allow any alphabet, any digit and dashes that does not begin or end
   subdomain_regex = /\A[a-zA-Z0-9]([-]?[a-zA-Z0-9]+)+\z/i
