@@ -1,4 +1,4 @@
-require 'spork'
+require 'spork' 
 require 'test_helper' unless Spork.using_spork?
 
 describe Club do  
@@ -59,6 +59,37 @@ describe Club do
 
       refute @club.valid?
       assert_match(/too long/, @club.errors[:subdomain].first)
+    end
+  end
+
+  describe "assocation/queues" do
+    before do
+      @club = Factory(:club)
+      @hall = Factory(:hall, :club => @club)
+      @normal_dining = Factory(:normal_dining, :hall => @hall)
+      @event = Factory(:event, :hall => @hall)
+
+      # same club
+      FactoryGirl.create_list(:dining_reservation, 20, :normal_dining => @normal_dining )
+      FactoryGirl.create_list(:event_reservation, 10, :event => @event)
+      
+      # different club
+      FactoryGirl.create_list(:dining_reservation, 8)
+    end
+
+    describe "reservations method" do
+      it "should return a Reservation activerecord array with all reservations from the club" do
+        assert_equal(30, @club.show_all_reservations.count )
+      end
+    end
+
+    describe "nested assocation to reservations" do
+      it "should return all dining OR event reservations" do 
+        assert_equal(20, @club.reservations.count )
+        assert_equal(10, @club.event_reservations.count )
+        assert_equal(30, (@club.reservations + @club.event_reservations).count )
+
+      end
     end
   end
 

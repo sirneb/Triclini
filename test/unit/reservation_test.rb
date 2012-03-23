@@ -18,7 +18,8 @@ describe Reservation do
     @reservation.date = @date
     @reservation.time = @time
     @reservation.number_of_guests = 5
-    # @reservation.isEvent = false
+    @reservation.is_event = false
+
   end
 
   describe "date field" do
@@ -73,92 +74,112 @@ describe Reservation do
     end
   end
 
-  describe "isEvent field" do
+  describe "is_event field" do
+    before do
+      @reservation.is_event = nil
+    end
+
     it "should always have a value after save" do
       @reservation.save!
 
-      refute_nil @reservation.isEvent
+      refute_nil @reservation.is_event
     end
   end
 
-  describe "normal_dining_id and event_id on create triggers isEvent field" do
-    it "makes sure isEvent is true when event_id is active" do
+  describe "status field" do
+
+    it "should not be blank" do
+      @reservation.status = nil
+
+      refute @reservation.valid?
+      assert_match(/blank/, @reservation.errors[:status].first)
+    end
+
+    it "should be set 'unconfirmed' by default" do
+      @reservation.save!
+
+      assert_equal(STATUS_VALUES['unconfirmed'], @reservation.status )
+    end
+  end
+
+  describe "normal_dining_id and event_id on create triggers is_event field" do
+    it "makes sure is_event is true when event_id is active" do
       @reservation.event_id = @event.id
       @reservation.normal_dining_id = nil
       # raise @reservation.inspect
       @reservation.save!
 
-      assert @reservation.isEvent
+      assert @reservation.is_event
       assert_nil @reservation.normal_dining_id
       refute_nil @reservation.event_id
     end
 
-    it "makes sure isEvent false when normal_dining_id is active" do
+    it "makes sure is_event false when normal_dining_id is active" do
       @reservation.event_id = nil
       @reservation.normal_dining_id = @normal_dining.id
       # raise @reservation.inspect
       @reservation.save!
 
-      refute @reservation.isEvent
+      refute @reservation.is_event
       assert_nil @reservation.event_id
       refute_nil @reservation.normal_dining_id
     end
 
   end
 
-  describe "status updates" do
-    it "should create a new status with modified date" do
+  describe "update assocation" do
+    it "should create a new update with modified date" do
       @reservation.save!
-      assert_empty @reservation.statuses
+      assert_empty @reservation.updates
 
       @reservation.date += 1
       @reservation.save!
 
-      states = @reservation.statuses.map(&:state)
+      states = @reservation.updates.map(&:state)
 
-      refute_empty @reservation.statuses
+      refute_empty @reservation.updates
       assert_includes(JSON.parse(states.first), "date" )
     end
 
-    it "should create a new status with modified time" do
+    it "should create a new update with modified time" do
       @reservation.save!
-      assert_empty @reservation.statuses
+      assert_empty @reservation.updates
 
       @reservation.time += 100
       @reservation.save!
 
-      states = @reservation.statuses.map(&:state)
+      states = @reservation.updates.map(&:state)
 
-      refute_empty @reservation.statuses
+      refute_empty @reservation.updates
       assert_includes(JSON.parse(states.first), "time" )
     end
 
-    it "should create a new status with modified number of guests" do
+    it "should create a new update with modified number of guests" do
       @reservation.save!
-      assert_empty @reservation.statuses
+      assert_empty @reservation.updates
 
       @reservation.number_of_guests += 1
       @reservation.save!
-      states = @reservation.statuses.map(&:state)
+      states = @reservation.updates.map(&:state)
 
-      refute_empty @reservation.statuses
+      refute_empty @reservation.updates
       assert_includes(JSON.parse(states.first), "number_of_guests" )
     end
 
-    it "should create multiple statuses with modified fields, will also disregard unwanted fields" do
+    it "should create multiple updates with modified fields, will also disregard unwanted fields" do
       @reservation.save!
-      assert_empty @reservation.statuses
+      assert_empty @reservation.updates
 
       @reservation.number_of_guests += 1
       @reservation.note = "hello"
       @reservation.time += 100
       @reservation.date += 1
       @reservation.save!
-      states = @reservation.statuses.map(&:state)
+      states = @reservation.updates.map(&:state)
       states_hash = JSON.parse(states.first)
       # raise states.first.inspect
 
-      refute_empty @reservation.statuses
+      refute_empty @reservation.updates
       assert_equal(3, states_hash.size )
       assert states_hash.has_key?('time')
       assert states_hash.has_key?('date')
@@ -167,17 +188,74 @@ describe Reservation do
     end
   end
 
-  describe "expected_guests_count method" do
+  describe "scopes" do
     before do
-      created_reservations = FactoryGirl.create_list(:reservation, 20, 
-                                                     :date => Date.today, 
-                                                     :number_of_guests => 5,
-                                                     :normal_dining_id => @normal_dining.id)
+      @date = Date.today
+      @time = Time.now
+      FactoryGirl.create_list(:dining_reservation, 10, :status => STATUS_VALUES["confirmed"],
+                                                       :date => @date,
+                                                       :time => @time)
+      FactoryGirl.create_list(:dining_reservation, 15, :status => STATUS_VALUES["unconfirmed"],
+                                                       :date => @date,
+                                                       :time => @time-800)
+      FactoryGirl.create_list(:event_reservation, 5, :status => STATUS_VALUES["confirmed"],
+                                                       :date => @date-1,
+                                                       :time => @time-1500)
     end
 
-    it "should return the total number of guests for the day" do
-      skip
+    describe "confirmed" do
+      it "should show the confirmed number of reservations" do
+        assert_equal(15, Reservation.confirmed.count)
+      end
+    end
+  
+    describe "unconfirmed" do
+      it "should show the unconfirmed number of reservations" do
+        assert_equal(15, Reservation.unconfirmed.count)
+      end
     end
 
+    describe "on_date" do
+      it "should show all reservations on that date" do
+        assert_equal(25, Reservation.on_date(@date).count)
+      end
+
+      it "should scope with other scopes" do
+        assert_equal(10, Reservation.confirmed.on_date(@date).count )
+      end
+    end
+
+    describe "before_date" do
+      it "should show all reservations on before the date" do
+        assert_equal(5, Reservation.before_date(@date).count)
+      end
+    end
+
+    describe "after_date" do
+      it "should show all reservations on after the date" do
+        assert_equal(25, Reservation.after_date(@date-1).count)
+      end
+    end
+
+    describe "on_time" do
+      it "should show all reservations on before the time" do
+        assert_equal(10, Reservation.on_time(@time).count)
+      end
+    end
+
+    describe "on_and_before_time" do
+      it "should show all reservations on before the time" do
+        assert_equal(20, Reservation.on_and_before_time(@time-10).count)
+      end
+    end
+
+    describe "on_and_after_time" do
+      it "should show all reservations on before the time" do
+        assert_equal(25, Reservation.on_and_after_time(@time-1000).count)
+      end
+
+    end
   end
+
+  
 end

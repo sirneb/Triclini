@@ -3,12 +3,12 @@ class ReservationsShowController < ApplicationController
 
   def current
     # temporary
-    @reservations = Reservation.where("hall_id = 1")
+    @reservations = Reservation.where("normal_dining_id = 1")
   end
 
   def past
     # temporary
-    @reservations = Reservation.where("hall_id = 1")
+    @reservations = Reservation.where("normal_dining_id = 1")
   end
 
   def waitlist

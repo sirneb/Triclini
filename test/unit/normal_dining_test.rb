@@ -3,7 +3,7 @@ require 'test_helper' unless Spork.using_spork?
 
 describe NormalDining do
 
-  def setup
+  before do
     @hall = Factory(:hall)
 
     @normal_dining = NormalDining.new.tap do |a|
@@ -110,6 +110,27 @@ describe NormalDining do
       # from default
       assert @normal_dining.settings(@date)[:reservable]
     end
+  end
+  
+  describe "default_operation_hours field" do
+    before do
+      @op_hash = @normal_dining.default_operation_hours
+    end
+
+    it "should create a blank hash on init" do
+      refute_nil @op_hash
+      assert_equal(7, @op_hash.size )
+      (0..6).each do |number|
+        assert_includes(@op_hash, Date::DAYNAMES[number])
+      end
+    end
+
+    it "should allow access to hash correctly" do
+      assert_equal(0, @op_hash['Sunday']['open_at'])
+      assert_equal(0, @op_hash['Wednesday']['close_at'])
+      assert_equal(true, @op_hash['Friday']['closed'])
+    end
+
   end
 
 end

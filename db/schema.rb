@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321174300) do
+ActiveRecord::Schema.define(:version => 20120322174815) do
 
   create_table "club_members", :force => true do |t|
     t.integer  "user_id"
@@ -85,22 +85,15 @@ ActiveRecord::Schema.define(:version => 20120321174300) do
     t.integer  "user_id"
     t.integer  "event_id"
     t.integer  "normal_dining_id"
-    t.boolean  "isEvent"
+    t.boolean  "is_event"
     t.integer  "number_of_guests"
     t.text     "note"
     t.date     "date"
     t.time     "time"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-  end
-
-  create_table "statuses", :force => true do |t|
-    t.integer  "reservation_id"
-    t.integer  "user_modifier_id"
-    t.string   "state"
-    t.text     "reason"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.string   "status"
+    t.boolean  "waitlist"
   end
 
   create_table "temporary_changes", :force => true do |t|
@@ -112,6 +105,15 @@ ActiveRecord::Schema.define(:version => 20120321174300) do
     t.text     "reason"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+  end
+
+  create_table "updates", :force => true do |t|
+    t.integer  "reservation_id"
+    t.integer  "user_modifier_id"
+    t.string   "state"
+    t.text     "reason"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "users", :force => true do |t|

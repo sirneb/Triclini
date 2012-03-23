@@ -66,42 +66,42 @@ describe Hall do
     end
   end
 
-  describe "events_on method" do
-    before do
-      @date = Date.today
-      @hall.save!
+  # describe "events_on method" do
+  #   before do
+  #     @date = Date.today
+  #     @hall.save!
 
-      @event1 = Event.new
-      @event1.date = @date
-      @event1.hall_id = @hall.id
-      @event1.name = "Event 1"
-      @event1.capacity = 500
-      @event1.save!
+  #     @event1 = Event.new
+  #     @event1.date = @date
+  #     @event1.hall_id = @hall.id
+  #     @event1.name = "Event 1"
+  #     @event1.capacity = 500
+  #     @event1.save!
 
-      @event2 = Event.new
-      @event2.date = @date
-      @event2.hall_id = @hall.id
-      @event2.name = "Event 2"
-      @event2.capacity = 500
-      @event2.save!
+  #     @event2 = Event.new
+  #     @event2.date = @date
+  #     @event2.hall_id = @hall.id
+  #     @event2.name = "Event 2"
+  #     @event2.capacity = 500
+  #     @event2.save!
 
-      @event3 = Event.new
-      @event3.date = Date.yesterday
-      @event3.hall_id = @hall.id
-      @event3.name = "Event 2"
-      @event3.capacity = 500
-      @event3.save!
-    end
+  #     @event3 = Event.new
+  #     @event3.date = Date.yesterday
+  #     @event3.hall_id = @hall.id
+  #     @event3.name = "Event 2"
+  #     @event3.capacity = 500
+  #     @event3.save!
+  #   end
 
-    it "should return an array of events on that date" do
-      assert_includes(@hall.events_on(@date), @event1)
-      assert_includes(@hall.events_on(@date), @event2)
-      refute_includes(@hall.events_on(@date), @event3)
-      assert_includes(@hall.events_on(Date.yesterday), @event3)
-    end
+  #   it "should return an array of events on that date" do
+  #     assert_includes(@hall.events_on(@date), @event1)
+  #     assert_includes(@hall.events_on(@date), @event2)
+  #     refute_includes(@hall.events_on(@date), @event3)
+  #     assert_includes(@hall.events_on(Date.yesterday), @event3)
+  #   end
 
-    it "should return empty if no events on that date" do
-      assert @hall.events_on(Date.new).empty?
-    end
-  end
+  #   it "should return empty if no events on that date" do
+  #     assert @hall.events_on(Date.new).empty?
+  #   end
+  # end
 end
