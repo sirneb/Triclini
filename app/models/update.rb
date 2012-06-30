@@ -5,5 +5,5 @@ class Update < ActiveRecord::Base
   
   validates_presence_of :state
 
-  attr_accessible :reason
+  # attr_accessible :reason
 end

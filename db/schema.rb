@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322174815) do
+ActiveRecord::Schema.define(:version => 20120630132927) do
 
   create_table "club_members", :force => true do |t|
     t.integer  "user_id"
@@ -83,9 +83,6 @@ ActiveRecord::Schema.define(:version => 20120322174815) do
 
   create_table "reservations", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "event_id"
-    t.integer  "normal_dining_id"
-    t.boolean  "is_event"
     t.integer  "number_of_guests"
     t.text     "note"
     t.date     "date"
@@ -94,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20120322174815) do
     t.datetime "updated_at",       :null => false
     t.string   "status"
     t.boolean  "waitlist"
+    t.string   "reservable_type"
+    t.integer  "reservable_id"
   end
 
   create_table "temporary_changes", :force => true do |t|

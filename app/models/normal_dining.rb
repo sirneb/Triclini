@@ -4,7 +4,7 @@ class NormalDining < ActiveRecord::Base
   include UtilityHelper
 
   has_many :temporary_changes, :dependent => :destroy
-  has_many :reservations, :dependent => :destroy
+  has_many :reservations, :as => :reservable, :dependent => :destroy
   belongs_to :hall
 
   validates_presence_of :default_capacity

@@ -12,13 +12,10 @@ describe Reservation do
     @date = Date.today
 
     @reservation = Reservation.new
-    # @reservation.creator_id = @user.id
     @reservation.user_id = @user.id
-    @reservation.normal_dining_id = @normal_dining.id
     @reservation.date = @date
     @reservation.time = @time
     @reservation.number_of_guests = 5
-    @reservation.is_event = false
 
   end
 
@@ -49,7 +46,6 @@ describe Reservation do
     end
   end
 
-
   describe "number of guests field" do
 
     it "should not be blank" do
@@ -74,17 +70,32 @@ describe Reservation do
     end
   end
 
-  describe "is_event field" do
-    before do
-      @reservation.is_event = nil
+  describe "polymorphic association with normal_dining and event" do
+    before(:each) do
+      @reservation2 = Factory(:reservation)
+      @normal_dining.reservations << @reservation
+      @event.reservations << @reservation2
     end
 
-    it "should always have a value after save" do
-      @reservation.save!
-
-      refute_nil @reservation.is_event
+    it "should be able to get the appropriate associations" do
+      assert_equal(@normal_dining, @reservation.reservable )
+      refute_equal(@event, @reservation.reservable)
+      assert_equal(@event, @reservation2.reservable )
+      refute_equal(@normal_dining, @reservation2.reservable)
     end
   end
+
+  # describe "is_event field" do
+  #   before do
+  #     @reservation.is_event = nil
+  #   end
+
+  #   it "should always have a value after save" do
+  #     @reservation.save!
+
+  #     refute_nil @reservation.is_event
+  #   end
+  # end
 
   describe "status field" do
 
@@ -102,30 +113,6 @@ describe Reservation do
     end
   end
 
-  describe "normal_dining_id and event_id on create triggers is_event field" do
-    it "makes sure is_event is true when event_id is active" do
-      @reservation.event_id = @event.id
-      @reservation.normal_dining_id = nil
-      # raise @reservation.inspect
-      @reservation.save!
-
-      assert @reservation.is_event
-      assert_nil @reservation.normal_dining_id
-      refute_nil @reservation.event_id
-    end
-
-    it "makes sure is_event false when normal_dining_id is active" do
-      @reservation.event_id = nil
-      @reservation.normal_dining_id = @normal_dining.id
-      # raise @reservation.inspect
-      @reservation.save!
-
-      refute @reservation.is_event
-      assert_nil @reservation.event_id
-      refute_nil @reservation.normal_dining_id
-    end
-
-  end
 
   describe "update assocation" do
     it "should create a new update with modified date" do

@@ -11,10 +11,14 @@ FactoryGirl.define do
   end
 
   factory :dining_reservation, :parent => :reservation do
-    normal_dining
+    association :reservable, factory: :normal_dining
   end
 
   factory :event_reservation, :parent => :reservation do
-    event
+    association :reservable, factory: :event
   end
 end
+
+# Factory.define :dining_reservation, :class => "Reservation" do |reservation|
+#   reservation.association :reservable, :factory => :normal_dining
+# end

@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
   include Reservable
 
   belongs_to :hall
-  has_many :reservations 
+  has_many :reservations, :as => :reservable, :dependent => :destroy 
 
   validates_presence_of :name
   validates_presence_of :capacity
